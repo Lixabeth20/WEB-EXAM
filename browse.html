@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse Books</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container{
+            max-width: 1000px;
+            margin-bottom: 50px;
+        }
+        h1{
+            font-size: 32px;
+            color: black;
+            text-align: center;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        li{
+            margin-bottom: 20px;
+            margin-left: 100px;
+            border: 3px solid white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            background-color: antiquewhite;
+        }
+        li img{
+            max-height: 100px;
+            margin-right: 5px;
+        }
+        li h3{
+            font-size: 16px;
+            color: black;
+        }
+        body{
+            background-image: url(savannah.jpeg);
+            background-size: cover;
+        }
+        li.author{
+            font-size: 16px;
+            color: black;
+            margin-bottom: 5px;
+            margin-left: 100px;
+        }
+        li.price{
+            font-size: 16px;
+            color: black;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Browse Books</h1>
+        <ul id="bookList"></ul>
+        <h2>View</h2>
+        <ul>
+            <li>
+                <a href="book-details.html?id=1" target="_blank">View Details-Small Country</a>
+            </li>
+            <li>
+                <a href="book-details.html?id=2" target="_blank">View Details-The First Wife</a>
+            </li>
+            <li>
+                <a href="book-details.html?id=3" target="_blank">View Details-A Grain of Wheat</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var books = [
+            {
+                title: "Small Country",
+                author: "Gael Faye",
+                price: 12.46,
+                description: "This novel begins with lovely memories Gaby has of his childhood but gradually darkens as political upheaval and violence sweep through his life",
+                coverImage: "C:/Users/Moscon/Desktop/WEB EXAM/small.png", // Corrected image path
+                bookFile: "https://www.bing.com/ck/a?!&&p=0a9e375b5c1f319aJmltdHM9MTcxMjAxNjAwMCZpZ3VpZD0zNWJhOWRkNi04NDg0LTY2MzEtM2FlNy04ZTU2ODVhNzY3MTQmaW5zaWQ9NTQ1Nw&ptn=3&ver=2&hsh=3&fclid=35ba9dd6-8484-6631-3ae7-8e5685a76714&psq=small+country+by+gael+faye+download+pdf&u=a1aHR0cHM6Ly93d3cubGl0bmV0LmNvLnphL2FmcmljYW4tbGlicmFyeS1zbWFsbC1jb3VudHJ5LWJ5LWdhZWwtZmF5ZS8&ntb=1",
+            },
+            {
+                title: "The First Wife",
+                author: "Paulina Chianze",
+                price: 13.99,
+                description: "After 20 years of marriage, Remi discovers that her husband has a secret collection of wives",
+                coverImage: "C:/Users/Moscon/Desktop/WEB EXAM/first.png", // Corrected image path
+                bookFile: "https://www.bing.com/ck/a?!&&p=79c91df154d2ecabJmltdHM9MTcxMjAxNjAwMCZpZ3VpZD0zNWJhOWRkNi04NDg0LTY2MzEtM2FlNy04ZTU2ODVhNzY3MTQmaW5zaWQ9NTQzOQ&ptn=3&ver=2&hsh=3&fclid=35ba9dd6-8484-6631-3ae7-8e5685a76714&psq=the+first+wife+by+paulina+chianze+download+pdf&u=a1aHR0cHM6Ly93d3cud29ybGRsaXRlcmF0dXJldG9kYXkub3JnLzIwMTYvbm92ZW1iZXIvZmlyc3Qtd2lmZS10YWxlLXBvbHlnYW15LXBhdWxpbmEtY2hpemlhbmU&ntb=1",
+            },
+            {
+                title: "A Grain of Wheat",
+                author: "Ngugi wa Thiong'o",
+                price: 14.56,
+                description: "This book follows a group of villagers whose lives were transformed by the 1952-1960 emergency",
+                coverImage: "C:/Users/Moscon/Desktop/WEB EXAM/grain.png", // Corrected image path
+                bookFile: "https://www.bing.com/ck/a?!&&p=737a54065576b380JmltdHM9MTcxMjAxNjAwMCZpZ3VpZD0zNWJhOWRkNi04NDg0LTY2MzEtM2FlNy04ZTU2ODVhNzY3MTQmaW5zaWQ9NTIxNg&ptn=3&ver=2&hsh=3&fclid=35ba9dd6-8484-6631-3ae7-8e5685a76714&psq=a+grain+of+wheat+pdf+download&u=a1aHR0cHM6Ly9rdXBkZi5uZXQvZG93bmxvYWQvYS1ncmFpbi1vZi13aGVhdC1uZ3VnaS13YS10aGlvbmctMzktby1wZGZfNTlmM2I0NGZlMmI2ZjU2NzA4ZjNjNGQ2X3BkZg&ntb=1",
+            }
+        ];
+
+        var bookList = document.getElementById("bookList");
+
+        // Function to create a book item
+        function createBookItem(book) {
+            var li = document.createElement("li");
+            var img = document.createElement("img");
+            img.src = book.coverImage;
+            li.appendChild(img);
+
+            var infoDiv = document.createElement("div");
+            var title = document.createElement("h3");
+            title.innerText = book.title;
+            infoDiv.appendChild(title);
+
+            var author = document.createElement("p");
+            author.classList.add("author");
+            author.innerText = "Author: " + book.author;
+            infoDiv.appendChild(author);
+
+            var price = document.createElement("p");
+            price.classList.add("price");
+            price.innerText = "Price: $" + book.price.toFixed(2);
+            infoDiv.appendChild(price);
+
+            var description = document.createElement("p");
+            description.innerText = "Description: " + book.description;
+            infoDiv.appendChild(description);
+
+            var downloadLink = document.createElement("a");
+            downloadLink.href = book.bookFile;
+            downloadLink.innerText = "Download";
+            downloadLink.setAttribute("download", "");
+            infoDiv.appendChild(downloadLink);
+
+            li.appendChild(infoDiv);
+            return li;
+        }
+
+        // Populate the book list
+        books.forEach(function(book) {
+            var bookItem = createBookItem(book);
+            bookList.appendChild(bookItem);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Details</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url(savannah.jpeg);
+      background-size: cover;
+     }
+    
+    .book-container {
+      display: flexbox;
+      margin: 50px;
+    }
+    
+    .book-image {
+      flex: 0 0 auto;
+      margin-right: 20px;
+    }
+    
+    .book-image img {
+      max-width: 80pxpx;
+      height: 60px;
+    }
+    
+    .book-details {
+      flex: 1;
+      margin-top: 20px;
+      margin-left: 200px;
+    }
+    
+    .book-details h2 {
+      font-size: 24px;
+      margin-top: 10px;
+      margin-left: 200px;
+    }
+    
+    .book-details p {
+      margin-top: 10px;
+      margin-left: 200px;
+    }
+    
+    .book-description,
+    .author-bio,
+    .customer-reviews {
+      margin-top: 10px;
+      margin-left: 200px;
+    }
+    
+    .book-description h3,
+    .author-bio h3,
+    .customer-reviews h3 {
+      font-size: 18px;
+      margin-top: 10px;
+      margin-left: 200px;
+    }
+    
+    /* Book actions */
+    .book-actions {
+      margin-top: 20px;
+      margin-left: 200px;
+    }
+    
+    .add-to-cart-button,
+    #buy-now-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-top: 100px;
+    }
+    
+    .add-to-cart-button:hover,
+    #buy-now-button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Reviews */
+    .customer-reviews ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .customer-reviews ul li {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    
+    .customer-reviews ul li:last-child {
+      border-bottom: none;
+    }
+    
+    .customer-reviews ul li p {
+      margin: 0;
+    }
+    
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .book-container {
+        flex-direction: column;
+      }
+    
+      .book-image {
+        margin-right: 0;
+        text-align: center;
+      }
+    
+      .book-image img {
+        margin-bottom: 10px;
+      }
+    }
+      .view-cart-button{
+      display: inline;
+      padding: 10px 20px;
+      background-color: #0056b3;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin-left: 500px;
+    }
+      .view-cart-button:hover{
+        background-color: #007bff;
+      }
+
+  </style>
+</head>
+<body>
+  <div class="book-container">
+    <div class="book-image">
+      <img id="book-cover-image" src="" alt="Book Cover" />
+    </div>
+    <div class="book-details">
+      <h2 id="book-title"></h2>
+      <p id="book-author"></p>
+      <div class="book-description">
+        <h3>Description:</h3>
+        <p id="book-description"></p>
+      </div>
+      <div class="author-bio">
+        <h3>Author Bio:</h3>
+        <p id="author-bio"></p>
+      </div>
+      <div class="customer-reviews">
+        <h3>Customer Reviews:</h3>
+        <ul id="reviews-list"></ul>
+      </div>
+      <div class="book-actions">
+        <button class="add-to-cart-button">Add to Cart</button>
+        <button id="buy-now-button">Buy Now</button>
+        <a href="shopping-cart.html" class="View-cart-button">View Shopping Cart</a>
+      </div>
+    </div>
+  </div>
+  <a href="shopping-cart.html" class="view-cart-button" id="view-cart-button">View Shopping Cart</a>
+
+  <script>
+    const bookId = new URLSearchParams(window.location.search).get("id");
+    const books = [
+      {
+        id: 1,
+        title:"Small Country",
+        author:"Gael Faye",
+        description:"This novel begins with lovely memories Gaby has of his childhood but gradually darkens as political upheaval and violence sweep through his life",
+        coverImage:"C:\Users\Moscon\Desktop\WEB EXAM\small.png",
+        authorBio:"Gael Faye is a French-Rwandan singer-songwriter and author. He was born in 1982 in Butare, Rwanda, to a Rwandan mother and a French father.",
+        bookFile:"https://www.example.com/small_country.pdf",
+        reviews: [
+          {
+            customer:"John Doe",
+            rating:5,
+            review:"Small Country is a beautifully written and deeply moving novel. I couldn't put it down.",
+          },
+          {
+            customer:"Jane Doe",
+            rating:4,
+            review:"A powerful and heart-wrenching story of a country torn apart by violence. I highly recommend it.",
+          },
+        ],
+      },
+      {
+        id:2,
+        title:"The First Wife",
+        author:"Paulina Chiziane",
+        description:"In The First Wife, Paulina Chiziane delves into the theme of polygamy, drawing on her own experiences to explore the lives of women in a society where men can take multiple wives.",
+        coverImage:"C:\Users\Moscon\Desktop\WEB EXAM\first.png",
+        authorBio:"Paulina Chiziane is a Mozambican writer and activist. She was the first Mozambican woman to publish a novel, and has been a leading voice for women's rights in her country.",
+        bookFile:"https://www.bing.com/ck/a?!&&p=79c91df154d2ecabJmltdHM9MTcxMjAxNjAwMCZpZ3VpZD0zNWJhOWRkNi04NDg0LTY2MzEtM2FlNy04ZTU2ODVhNzY3MTQmaW5zaWQ9NTQzOQ&ptn=3&ver=2&hsh=3&fclid=35ba9dd6-8484-6631-3ae7-8e5685a76714&psq=the+first+wife+by+paulina+chianze+download+pdf&u=a1aHR0cHM6Ly93d3cud29ybGRsaXRlcmF0dXJldG9kYXkub3JnLzIwMTYvbm92ZW1iZXIvZmlyc3Qtd2lmZS10YWxlLXBvbHlnYW15LXBhdWxpbmEtY2hpemlhbmU&ntb=1",
+        reviews: [
+          {
+            customer:"John Doe",
+            rating:5,
+            review:"The First Wife is a powerful and thought-provoking novel that sheds light on an important issue. I couldn't put it down.",
+          },
+          {
+            customer:"Jane Doe",
+            rating:4,
+            review:"A fascinating and eye-opening look at polygamy in Mozambique. I highly recommend it.",
+          },
+        ],
+      },
+      {
+        id: 3,
+        title:"A Grain of Wheat",
+        author:"Ngugi wa Thiongo",
+        description:"This book follows a group of villagers whose lives were transformed by the 1952-1960 emergency",
+        coverImage:"C:\Users\Moscon\Desktop\WEB EXAM\grain.png",
+        authorBio:"Ngugi wa Thiongo is an author and academic who is often refered to as the greatest East African writter of all time",
+        bookFile:"https://www.bing.com/ck/a?!&&p=737a54065576b380JmltdHM9MTcxMjAxNjAwMCZpZ3VpZD0zNWJhOWRkNi04NDg0LTY2MzEtM2FlNy04ZTU2ODVhNzY3MTQmaW5zaWQ9NTIxNg&ptn=3&ver=2&hsh=3&fclid=35ba9dd6-8484-6631-3ae7-8e5685a76714&psq=a+grain+of+wheat+pdf+download&u=a1aHR0cHM6Ly9rdXBkZi5uZXQvZG93bmxvYWQvYS1ncmFpbi1vZi13aGVhdC1uZ3VnaS13YS10aGlvbmctMzktby1wZGZfNTlmM2I0NGZlMmI2ZjU2NzA4ZjNjNGQ2X3BkZg&ntb=1",
+        reviews: [
+        {
+          customer:"John Doe",
+          rating:5,
+          review:"The First Wife is a powerful and thought-provoking novel that sheds light on an important issue. I couldn't put it down.",
+        },
+        {
+          customer:"Jane Doe",
+          rating:4,
+          review:"A fascinating and eye-opening look at African Village life during colonial times. I highly recommend it.",
+        },
+
+        ]      
+      }
+    ];
+
+    const book = books.find((b) => b.id == bookId);
+    if (book) {
+      document.getElementById("book-cover-image").src = book.coverImage;
+      document.getElementById("book-title").innerText = book.title;
+      document.getElementById("book-author").innerText = book.author;
+      document.getElementById("book-description").innerText = book.description;
+      document.getElementById("author-bio").innerText = book.authorBio;
+      document.getElementById("customer-reviews").innerText=book.customerReview;
+    }
+
+    const addToCartButton = document.querySelector(".add-to-cart-button");
+    addToCartButton.addEventListener("click", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingItem = cart.find((item) => item.id === book.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ ...book, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("The book has been added to your cart.");
+    });
+
+    document.getElementById("buy-now-button").addEventListener("click", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingItem = cart.find((item) => item.id === book.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ ...book, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      window.location.href = "checkout.html";
+    });
+  </script>
+</body>
+</html>
+
+

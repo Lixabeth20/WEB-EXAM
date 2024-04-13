@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC ONLINE BOOKSTORE</title>
+    <link rel="stylesheet" href="styles css">
+    
+    <style>
+        body{
+            background-image: url(savannah.jpeg);
+            background-size: cover;
+        }
+      .featured-list li img{
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+    .featured-list li h3{
+        font-size: 20px;
+        color: white;
+        margin-bottom: 5px;
+    }
+    .featured-list li p{
+        font-size: 18px;
+        color: white;
+    }
+    .search-bar{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .search-bar input[type="text"]{
+        padding: 10px;
+        width: 300px;
+        border: none;
+    }
+    .search-bar button{
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    p{
+        background-color: black;
+        color: white;
+        font-style: italic;
+        font-size: larger;
+    }
+    </style>
+    <a href="browse.html">Browse Books</a>
+            <ul class="features-list">
+</head>
+<body>   
+    <section class="intro-section">
+        <div class="container">
+            
+          <p>WELCOME TO THE EAST AFRICAN BOOK STORE!
+            Discover a new world of East African Literature.
+        </p>
+    </li>
+</li>
+</ul>
+</div>
+        </div>
+    </section>
+    <section class="featured-section">
+        <div class="container">
+            <h2>Feaured books</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for books...">
+                <button id="searchButton">Search</button>
+            </div>
+            <ul class="featured-list">
+                <li>
+                    <img src="small.png" alt="Small Country">
+                    <h3>Small Country by Gael Faye</h3>
+                    <p>This novel begins with lovely memories Gaby has of his childhood but gradually darkens as 
+                        political upheaval and violence sweep through his life.
+                    </p>
+                </li>
+                <li>
+                    <img src="king.png" alt="The Shadow King">
+                    <h3>The Shadow King by Maaza Mengise</h3>
+                    <p>This novel focuses on the second Ethiopian war that put an end to Italian occupation</p>
+                </li>
+                <li>
+                    <img src="kik.png" alt="Kikwetu">
+                    <h3>Kikwetu</h3>
+                    <p>This is an annual online journal that publishes both new and established writers from East
+                        Africa and beyond in English and Swahili
+                    </p>
+                </li>
+                <li>
+                    <img src="harness.png" alt="The Boy Who Harnessed the Wind">
+                    <h3>The Boy Harnessed the Wind</h3>
+                    <p>A 13-year-old boy is thrown out of the school he loves when his family can no longer afford fees.
+                        He sneaks into the library and learns how to build a windmill to save his family from famine
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script>
+      document.getElementById("searchButton").addEventListener("click", function()
+      {
+          var searchInput=document.getElementById("searchInput").value.toLowercase();
+          var featuredlist=
+          document.getElementsByClassName("featured-list")[0];
+          var books=featuredlist.getElementsByTagName("li");
+  
+          for(var i=0;i<books.length;i++){
+              var books=books[i]
+              var title=book.getElementsByTagName("h3")
+              [0].innerText.toLowercase();
+              var description=getElementsByTagName("p")
+              [0].innerText.toLowercase();
+              
+              if(title.includes(searchInput)||
+              description.includes(searchInput)){
+                  book.style.display="block";
+              }else{
+                  book.style.display="none"
+              }
+           }
+      });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url(savannah.jpeg);
+            background-size: cover;
+        
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff; /* White container background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      form {
+        margin-top: 20px;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      
+      input[type="text"],
+      input[type="email"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc; /* Gray border */
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+      }
+      
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff; /* Blue submit button */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+      }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>Checkout</h1>
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <ul id="order-details"></ul>
+      <p id="total-cost"></p>
+    </div>
+    <div class="checkout-form">
+      <h2>Shipping Information</h2>
+      <form id="checkout-form">
+        <label for="shipping-address">Shipping Address:</label>
+        <textarea id="shipping-address" name="shipping-address" rows="4" required></textarea>
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method" name="payment-method" required>
+          <option value="credit-card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="bank-transfer">Bank Transfer</option>
+        </select>
+        <button type="submit">Complete Purchase</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const orderDetailsList = document.getElementById("order-details");
+      const totalCostElement = document.getElementById("total-cost");
+      const checkoutForm = document.getElementById("checkout-form");
+
+      // Retrieve cart items from local storage
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Function to display order summary
+      function displayOrderSummary() {
+        orderDetailsList.innerHTML = ""; // Clear existing items
+
+        let totalCost = 0;
+
+        cart.forEach((item) => {
+          const li = document.createElement("li");
+          const itemTotalCost = item.quantity * item.price;
+          totalCost += itemTotalCost;
+
+          li.textContent = "${item.title} - Quantity: ${item.quantity} - $${itemTotalCost.toFixed(2)}";
+          orderDetailsList.appendChild(li);
+        });
+
+        // Display total cost
+        totalCostElement.textContent ="Total Cost: $${totalCost.toFixed(2)}";
+      }
+
+      // Call function to display order summary
+      displayOrderSummary();
+
+      // Handle form submission
+      checkoutForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Get shipping address and payment method from form
+        const shippingAddress = document.getElementById("shipping-address").value;
+        const paymentMethod = document.getElementById("payment-method").value;
+
+        // Perform checkout process (e.g., send data to server, redirect to payment gateway, etc.)
+        // For demonstration purposes, we'll simply display a confirmation message
+        alert("Thank you for your purchase!\nShipping Address: ${shippingAddress}\nPayment Method: ${paymentMethod}");
+
+        // Clear cart after checkout
+        localStorage.removeItem("cart");
+
+        // Redirect user to home page or confirmation page
+        window.location.href = "index.html"; // Replace "index.html" with appropriate URL
+      });
+      document.addEventListener("DOMContentLoaded", function() {
+        const completePurchaseButton = document.getElementById("complete-purchase-button");
+      
+        if (completePurchaseButton) {
+          completePurchaseButton.addEventListener("click", function() {
+            // Assuming the order details are collected and stored in variables
+            const orderNumber = generateOrderNumber(); // Function to generate a unique order number
+            const shippingAddress = document.getElementById("shipping-address").value; // Example: Retrieving shipping address from form input
+            const estimatedDeliveryDate = calculateEstimatedDeliveryDate(); // Function to calculate estimated delivery date
+      
+            // Store order details in localStorage for retrieval on the order confirmation page
+            localStorage.setItem("orderDetails", JSON.stringify({
+              orderNumber: orderNumber,
+              shippingAddress: shippingAddress,
+              estimatedDeliveryDate: estimatedDeliveryDate
+            }));
+      
+            // Redirect to the order confirmation page
+            window.location.href = "order-confirmation.html";
+          });
+        } else {
+          console.error("Complete purchase button not found.");
+        }
+      });
+      
+      function generateOrderNumber() {
+        // Example function to generate a unique order number
+        return "ORD" + Math.floor(Math.random() * 1000000);
+      }
+      
+      function calculateEstimatedDeliveryDate() {
+        // Example function to calculate estimated delivery date
+        const currentDate = new Date();
+        const estimatedDeliveryDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // Assuming delivery within 7 days
+        return estimatedDeliveryDate.toDateString();
+      }
+    });
+  </script>
+</body>
+</html>
